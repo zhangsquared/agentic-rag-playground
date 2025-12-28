@@ -1,7 +1,10 @@
 # Agentic RAG Playground
 
-Use LlamdaIndex to build agentic RAG</br>
-(Ref: [Rag Playground](https://github.com/zhangsquared/rag-playground))
+Use LlamdaIndex to build agentic RAG
+
+Ref:
+- [Rag Playground](https://github.com/zhangsquared/rag-playground)
+- [Use LangChain to build agentic RAG](https://github.com/zhangsquared/raw-agentic-rag)
 
 ## Set up env
 
@@ -80,7 +83,7 @@ Requirement: free, fast, no requirement for GPU
 
 - Embedding: `BAAI/bge-small-en-v1.5`
 - Reranking: `BAAI/bge-reranker-base`
-- LLM Model: `gemini-1.5-flash`
+- LLM Model: `gemini-2.5-flash-lite`
 
 [config](./config/__init__.py)
 
