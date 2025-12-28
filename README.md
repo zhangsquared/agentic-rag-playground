@@ -9,6 +9,12 @@ Use LlamdaIndex to build agentic RAG</br>
 uv sync
 ```
 
+Env var: Create a `.env` file
+```bash
+GOOGLE_API_KEY=...
+GITHUB_TOKEN=...
+```
+
 ### First time set up env
 
 ```bash
