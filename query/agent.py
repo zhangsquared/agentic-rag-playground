@@ -15,6 +15,8 @@ query_tool = QueryEngineTool.from_defaults(
 def summarize(text: str) -> str:
     # your own basic summarizer; replace with an LLM call if desired
     return text[:500] + "..."
+
+
 summary_tool = FuntionTool.from_defaults(
     func=summarize,
     name="Summary Tool",
