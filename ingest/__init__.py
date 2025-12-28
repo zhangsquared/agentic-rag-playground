@@ -8,4 +8,4 @@ from config import EMBED_MODEL_NAME, LLM_MODEL_NAME
 load_dotenv()  # take environment variables from .env file
 
 Settings.embed_model = HuggingFaceEmbedding(model_name=EMBED_MODEL_NAME)
-Settings.llm_model = GoogleGenAI(model_name=LLM_MODEL_NAME)
+Settings.llm = GoogleGenAI(model_name=LLM_MODEL_NAME)

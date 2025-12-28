@@ -68,9 +68,7 @@ def load_index():
     index = VectorStoreIndex.from_vector_store(
         vector_store=vector_store, storage_context=storage_context
     )
-    print(
-        f"Index successfully loaded from chroma {chroma_collection.count()} vectors."
-    )
+    print(f"Index successfully loaded from chroma {chroma_collection.count()} vectors.")
     return index
 
 

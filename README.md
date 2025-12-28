@@ -80,8 +80,30 @@ Requirement: free, fast, no requirement for GPU
 
 - Embedding: `BAAI/bge-small-en-v1.5`
 - Reranking: `BAAI/bge-reranker-base`
+- LLM Model: `gemini-1.5-flash`
 
-On the first run, `load_docs.py` or `rag_query_engine.py` may be slow because the embedding model and reranking model need to be downloaded. In particular, the reranking model can take up to an hour to download on the first run.</br>
+[config](./config/__init__.py)
+
+## Future improvement
+
+1. Gemini free tier has rate limiting
+
+```bash
+google.genai.errors.ClientError: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash\nPlease retry in 49.811440661s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_input_token_count', 'quotaId': 'GenerateContentInputTokensPerModelPerMinute-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.0-flash'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerMinutePerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.0-flash'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.0-flash'}}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '49s'}]}}
+```
+
+Gemini API Free Tier Limits (Dec 2025 Update)
+| Model                | RPM (Requests Per Min) | RPD (Requests Per Day) | TPM (Tokens Per Min) |
+|---------------------|----------------------|-----------------------|--------------------|
+| Gemini 2.0 Flash     | 10                   | 200                   | 1,000,000          |
+| Gemini 1.5 Flash     | 15                   | 1,500                 | 1,000,000          |
+| Gemini 1.5 Pro       | 2                    | 50                    | 32,000             |
+| Gemini 2.5 Flash-Lite| 30                   | 1,500                 | 1,000,000          |
+
+2. Model loading introduces a noticeable start-up delay during the first run
+
+On the first run, `load_docs.py` or `rag_query_engine.py` may be slow because the embedding model and reranking model need to be downloaded.
+In particular, the reranking model can take up to an hour to download on the first run.</br>
 e.g.
 ```bash
 (agentic-rag-playground) $ uv run python -m query.rag_query_engine
@@ -94,3 +116,8 @@ special_tokens_map.json: 100%|████████████████�
 config.json: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 799/799 [00:00<00:00, 7.01MB/s]
 model.safetensors:   0%|                                                                                                                                 | 0.00/1.11G [00:00<?, ?B/s]
 ```
+
+3. The github reader can be improved
+
+- Right now, the owner and repository name are hardcoded.
+- Running the script again on the same Git repository will append vectors rather than overwrite the existing ones.

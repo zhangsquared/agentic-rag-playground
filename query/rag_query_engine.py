@@ -4,11 +4,13 @@ from llama_index.postprocessor.flag_embedding_reranker import FlagEmbeddingReran
 from config import RERANK_MODEL_NAME
 from ingest.load_docs import load_index
 
+RETRIVAL_TOP_K = 5
+RERANK_TOP_N = 2
+
 
 def build_query_engine():
+    # load knowledge base index
     index = load_index()
-    # vector retrieval
-    retriever = index.as_retriever(similarity_top_k=10)
 
     # custom prompt template
     query_prompt_template = PromptTemplate(
@@ -24,14 +26,14 @@ def build_query_engine():
         """
     )
     # reranker model
-    reranker = FlagEmbeddingReranker(model=RERANK_MODEL_NAME, top_n=3)
+    reranker = FlagEmbeddingReranker(model=RERANK_MODEL_NAME, top_n=RERANK_TOP_N)
 
     # build query engine
     query_engine = index.as_query_engine(
-        retriever=retriever,
+        similarity_top_k=RETRIVAL_TOP_K,
         node_postprocessors=[reranker],
         prompt_template=query_prompt_template,
-        response_mode="tree_summarize",
+        response_mode="compact",  # "tree_summarize" is too expensive for my free tier!
     )
     return query_engine
 
