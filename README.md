@@ -6,6 +6,12 @@ Use LlamdaIndex to build agentic RAG</br>
 ## Set up env
 
 ```bash
+uv sync
+```
+
+### First time set up env
+
+```bash
 uv init .
 uv add ruff  # lint tool
 ```
