@@ -30,7 +30,8 @@ agentic-rag-playground/
 ├── query/
 │   ├── agent.py # AI Agent
 │   ├── api.py # FastAPI, stateless online service
-│   └── rag_query_engine.py # given a user query, perform vector retrieval, apply reranking, and generate a response.
+│   └── rag_query_engine.py # given a user query, perform vector retrieval,
+│                           # apply reranking, and generate a response.
 └── storage/ # persisted index document
 ```
 
