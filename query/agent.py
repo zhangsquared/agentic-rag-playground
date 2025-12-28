@@ -41,10 +41,10 @@ def hyde_tool():
 
 def build_agent():
     query_tool_instance = query_tool()
-    summary_tool_instance = summary_tool()
-    hyde_tool_instance = hyde_tool()
+    # summary_tool_instance = summary_tool()
+    # hyde_tool_instance = hyde_tool()
     agent = ReActAgent.from_tools(
-        tools=[query_tool_instance, summary_tool_instance, hyde_tool_instance],
+        tools=[query_tool_instance],
         verbose=True,
         system_prompt="""
     You are a retrieval agent.

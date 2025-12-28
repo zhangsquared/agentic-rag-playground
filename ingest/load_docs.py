@@ -58,14 +58,14 @@ def save_index(nodes):
     print(f"Index and metadata successfully persisted to {STORAGE}.")
 
 
-def load_index():
+def load_index() -> VectorStoreIndex:
     chroma_client = chromadb.PersistentClient(
         path=STORAGE,
     )
     chroma_collection = chroma_client.get_or_create_collection(name=COLLECTION_NAME)
     vector_store = ChromaVectorStore(chroma_collection=chroma_collection)
     storage_context = StorageContext.from_defaults(vector_store=vector_store)
-    index = VectorStoreIndex.from_vector_store(
+    index: VectorStoreIndex = VectorStoreIndex.from_vector_store(
         vector_store=vector_store, storage_context=storage_context
     )
     print(f"Index successfully loaded from chroma {chroma_collection.count()} vectors.")
@@ -76,5 +76,5 @@ if __name__ == "__main__":
     nodes = load_and_chunk_docs()
     save_index(nodes)
 
-    index = load_index()
+    index: VectorStoreIndex = load_index()
     print(f"Index loaded {index}")
