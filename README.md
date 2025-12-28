@@ -121,3 +121,5 @@ model.safetensors:   0%|                                                        
 
 - Right now, the owner and repository name are hardcoded.
 - Running the script again on the same Git repository will append vectors rather than overwrite the existing ones.
+
+4. A proper managed Vector DB
