@@ -10,6 +10,7 @@ dependencies = [
     "llama-index>=0.14.10",
     "llama-index-embeddings-huggingface>=0.6.1",
     "llama-index-postprocessor-flag-embedding-reranker>=0.4.1",
+    "llama-index-vector-stores-chroma>=0.5.3",
     "ruff>=0.14.10",
     "uvicorn>=0.40.0",
 ]

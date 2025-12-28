@@ -14,9 +14,11 @@ Dependencies:
 
 ```bash
 uv add llama-index
-uv add llama-index-embeddings-huggingface
-uv add llama-index-postprocessor-flag-embedding-reranker
+uv add llama-index-embeddings-huggingface # embeding model
+uv add llama-index-postprocessor-flag-embedding-reranker # reranker model
+uv add llama-index-readers-github # knowledge base: github readme
 uv add chromadb
+uv add llama-index-vector-stores-chroma
 uv add fastapi uvicorn
 ```
 
@@ -50,7 +52,7 @@ uv run uvicorn query.api:app --host 0.0.0.0 --port 8000
 Run lint tool:
 
 ```bash
-uv run ruff format .
+ruff check --select I --fix . | uv run ruff format .
 ```
 
 ## Choose embedding and reranking model
