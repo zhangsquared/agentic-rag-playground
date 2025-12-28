@@ -3,13 +3,12 @@ from llama_index.core.indices.query.query_transform import HyDEQueryTransform
 from llama_index.core.query_engine import TransformQueryEngine
 from llama_index.core.tools import FuntionTool, QueryEngineTool
 
-from query.rag_query_engine import load_index, query_engine
+from query.rag_query_engine import query_engine
 
 
 def query_tool():
-    query_engine_instance = query_engine(load_index())
     query_tool = QueryEngineTool.from_defaults(
-        query_engine=query_engine_instance,
+        query_engine=query_engine,
         name="Query Tool",
         description="Search internal documents for relevant information.",
     )
@@ -40,7 +39,7 @@ def hyde_tool():
     return hyde_tool
 
 
-def agent():
+def build_agent():
     query_tool_instance = query_tool()
     summary_tool_instance = summary_tool()
     hyde_tool_instance = hyde_tool()
@@ -55,3 +54,8 @@ def agent():
     - Never hallucinate
     """,
     )
+    return agent
+
+
+# global agent instance
+agent = build_agent()
